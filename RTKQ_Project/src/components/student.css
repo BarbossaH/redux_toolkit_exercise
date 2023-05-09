@@ -1,0 +1,27 @@
+table {
+  margin: 50px auto;
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+caption {
+  padding: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+th {
+  padding: 5px 30px;
+  border: 1px solid;
+}
+
+td {
+  border: 1px solid;
+  text-align: center;
+  width: 90px;
+}
+
+input {
+  text-align: center;
+  width: 80%;
+}

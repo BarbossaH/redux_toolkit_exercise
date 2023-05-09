@@ -14,10 +14,19 @@ const studentApi = createApi({
           //http://localhost:1337/api/students
           return 'students';
         },
+        //this can adjust the format of the return value
+        transformResponse(baseQueryReturnValue) {
+          // console.log(baseQueryReturnValue.data);
+          // console.log(meta);
+          return baseQueryReturnValue.data;
+        },
       }),
       getStudentsById: build.query({
         query(id) {
-          return `student/${id}`;
+          return `students/${id}`;
+        },
+        transformResponse(baseQueryReturnValue) {
+          return baseQueryReturnValue.data;
         },
       }),
       // updateStudent: build.mutation(),

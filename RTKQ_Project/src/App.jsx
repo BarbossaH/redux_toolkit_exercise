@@ -1,14 +1,18 @@
-import {
-  useGetStudentsQuery,
-  useGetStudentsByIdQuery,
-} from './store/studentApi';
+import StudentList from './components/StudentList';
+
+import { useGetStudentsQuery } from './store/studentApi';
 
 function App() {
-  const obj = useGetStudentsQuery();
-  // const obj1 = useGetStudentsByIdQuery(1);
-  // console.log(obj);
-  // console.log(obj1);
-  return <div>App</div>;
+  // this is an asynchronous function, so we need to wait the results
+  const { data, isSuccess, isLoading } = useGetStudentsQuery();
+  // console.log(data);
+
+  return (
+    <div>
+      {isLoading && <p> Data is loading</p>}
+      {isSuccess && <StudentList students={data} />}
+    </div>
+  );
 }
 
 export default App;
