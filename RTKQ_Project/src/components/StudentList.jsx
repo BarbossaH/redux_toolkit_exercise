@@ -1,5 +1,5 @@
 import './student.css';
-// import StudentForm from './StudentForm';
+import StudentForm from './StudentForm';
 import StudentSingleInfo from './StudentSingleInfo';
 const StudentList = ({ students }) => {
   // console.log(props.students);
@@ -21,7 +21,9 @@ const StudentList = ({ students }) => {
           <StudentSingleInfo key={item.id} studentInfo={item} />
         ))}
       </tbody>
-      <tfoot>{/* <StudentForm /> */}</tfoot>
+      <tfoot>
+        <StudentForm />
+      </tfoot>
     </table>
   );
 };

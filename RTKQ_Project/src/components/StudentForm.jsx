@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useGetStudentsByIdQuery } from '../store/studentApi';
+import {
+  useAddStudentMutation,
+  useGetStudentsByIdQuery,
+  useUpdateStudentByIdMutation,
+} from '../store/studentApi';
 
 const StudentForm = ({ stuId, onCancel }) => {
-  const { data: singleStuInfo, isSuccess } = useGetStudentsByIdQuery(stuId);
-  if (isSuccess) console.log(singleStuInfo.attributes);
+  const { data: singleStuInfo, isSuccess } = useGetStudentsByIdQuery(stuId, {
+    skip: !stuId, //to skip to fetching data from the server
+  });
+  // if (isSuccess) console.log(singleStuInfo.attributes);
   const [inputData, setInputData] = useState({
     name: '',
     age: '',
-    gender: '',
+    gender: 'male',
     address: '',
   });
   useEffect(() => {
@@ -22,14 +28,34 @@ const StudentForm = ({ stuId, onCancel }) => {
     setInputData((prevState) => ({ ...prevState, age: +e.target.value }));
   };
   const handleGenderChange = (e) => {
+    console.log(e.target.value);
     setInputData((prevState) => ({ ...prevState, gender: e.target.value }));
   };
   const handleAddressChange = (e) => {
     setInputData((prevState) => ({ ...prevState, address: e.target.value }));
   };
 
-  const handleSubmit = () => {};
-  const handleUpdate = () => {};
+  const [addStudent, { isSuccess: isAddStudent }] = useAddStudentMutation();
+  const [updateStudent, { isSuccess: isUpdateStudent }] =
+    useUpdateStudentByIdMutation();
+  const handleSubmit = () => {
+    console.log(inputData);
+    addStudent(inputData);
+    setInputData({
+      name: '',
+      age: '',
+      gender: 'male',
+      address: '',
+    });
+  };
+  const handleUpdate = () => {
+    console.log(inputData, stuId);
+    updateStudent({
+      id: stuId,
+      studentInfo: inputData,
+    });
+    onCancel();
+  };
   return (
     <>
       <tr>
